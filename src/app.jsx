@@ -4,10 +4,10 @@ import Slide from './components/slide/slide';
 
 function App() {
   return (
-    <div>
+    <>
       <Navbar />
       <Slide />
-    </div>
+    </>
   );
 }
 
