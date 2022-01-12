@@ -19,13 +19,14 @@
 .icon {
   font-size: 1.2rem;
   font-family: sans-serif;
+  color: #393939;
   cursor: pointer;
 }
 
 .logo_name {
   margin-left: 0.8em;
   font-size: 1.4rem;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .navbar_menu {
