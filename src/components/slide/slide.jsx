@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SlideListImage from '../slide_list_image/slide_list_image';
 import './slide.css';
 import slideImages from './slideImageData';
@@ -18,6 +18,9 @@ const Slide = () => {
     }
     setIsMove(true);
     nowIndex.current = nowIndex.current + 1;
+    const currentImage = slideList.current.querySelectorAll('.list-card');
+    console.log(currentImage);
+
     slideList.current.style.transition = '300ms';
     setCurrentIndex(nowIndex.current);
 
@@ -30,6 +33,19 @@ const Slide = () => {
       setIsMove(false);
     }, 500);
   };
+
+  useEffect(() => {
+    const currentImage = slideList.current.querySelectorAll('.list-card');
+    console.log(currentImage);
+    currentImage.forEach((image, index) => {
+      console.log(index, nowIndex.current);
+      if (index === nowIndex.current) {
+        image.style.filter = 'brightness(100%)';
+      } else {
+        image.style.filter = 'brightness(30%)';
+      }
+    });
+  }, [currentIndex]);
 
   const preClick = () => {
     if (isMove) {
