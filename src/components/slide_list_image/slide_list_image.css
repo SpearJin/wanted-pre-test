@@ -1,0 +1,10 @@
+.list-card {
+  float: left;
+  list-style: none;
+  /* filter: brightness(0%); */
+}
+
+.list-card:not(:last-child) {
+  padding-right: 20px;
+  list-style: none;
+}

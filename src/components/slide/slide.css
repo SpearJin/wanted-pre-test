@@ -1,9 +1,10 @@
-.slide_list {
-  display: flex;
-  justify-content: space-around;
-  position: relative;
+.slide {
+  width: 100%;
+  margin: auto;
+  overflow: hidden;
 }
 
-.list-img {
-  width: 30%;
+.slide_list {
+  display: flex;
+  padding-left: 0;
 }
