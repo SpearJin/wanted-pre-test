@@ -77,14 +77,12 @@ const Slide = () => {
           return <SlideListImage key={img.id} img={img} />;
         })}
       </ul>
-      <div className='slide_btn'>
-        <button className='btn pre' onClick={preClick}>
-          <i className='fas fa-chevron-left'></i>
-        </button>
-        <button className='btn next' onClick={nextClick}>
-          <i className='fas fa-chevron-right'></i>
-        </button>
-      </div>
+      <button className='btn btn_pre' onClick={preClick}>
+        <i className='fas fa-chevron-left'></i>
+      </button>
+      <button className='btn btn_next' onClick={nextClick}>
+        <i className='fas fa-chevron-right'></i>
+      </button>
     </div>
   );
 };

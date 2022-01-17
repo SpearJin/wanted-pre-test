@@ -1,10 +1,31 @@
 .slide {
+  position: relative;
   width: 100%;
-  margin: auto;
   overflow: hidden;
 }
 
 .slide_list {
   display: flex;
   padding-left: 0;
+}
+
+.btn {
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 60px;
+  border-radius: 15px;
+  background-color: #fff;
+  font-size: 16px;
+  opacity: 0.5;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.btn_pre {
+  left: calc((100% - 1240px) / 2);
+}
+
+.btn_next {
+  right: calc((100% - 1200px) / 2);
 }
