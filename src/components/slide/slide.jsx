@@ -11,7 +11,11 @@ const Slide = () => {
   let timeOut = useRef(null);
 
   const slideWidth = slideList.current?.children[0].clientWidth || 1080;
-  const innerWidth = window.innerWidth;
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+
+  window.addEventListener('resize', () => {
+    setInnerWidth(window.innerWidth);
+  });
 
   useEffect(() => {
     const currentImage = slideList.current.querySelectorAll('.list-card');
@@ -35,7 +39,6 @@ const Slide = () => {
       return;
     }
     setIsMove(true);
-
     const target = e.target.nodeName === 'BUTTON' ? e.target : e.target.closest('.btn');
     if (target.className.includes('btn_pre')) {
       nowIndex.current = nowIndex.current - 1;
@@ -61,13 +64,13 @@ const Slide = () => {
     }, 500);
   };
 
+  const slideImageReSize = () => ({
+    transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
+  });
+
   return (
     <div className='slide'>
-      <ul
-        className='slide_list'
-        ref={slideList}
-        style={{ transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))` }}
-      >
+      <ul className='slide_list' ref={slideList} style={slideImageReSize()}>
         {slideImages.map((img) => {
           return <SlideListImage key={img.id} img={img} />;
         })}
