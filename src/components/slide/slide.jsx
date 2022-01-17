@@ -10,7 +10,7 @@ const Slide = () => {
   const nowIndex = useRef(2);
   let timeOut = useRef(null);
 
-  const slideWidth = slideList.current?.children[0].clientWidth || 1080;
+  const slideWidth = slideList.current?.children[0].clientWidth || 1011;
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
   window.addEventListener('resize', () => {
@@ -19,12 +19,20 @@ const Slide = () => {
 
   useEffect(() => {
     const currentImage = slideList.current.querySelectorAll('.list-card');
+    const currentInfo = slideList.current.querySelectorAll('.info');
     currentImage.forEach((image, index) => {
       if (index === nowIndex.current) {
         image.style.filter = 'brightness(100%)';
       } else {
         image.style.filter = 'brightness(30%)';
       }
+      currentInfo.forEach((info, index) => {
+        if (index === nowIndex.current) {
+          info.style.display = 'block';
+        } else {
+          info.style.display = 'none';
+        }
+      });
       clearInterval(timeOut.current);
       timeOut.current = setInterval(() => {
         nowIndex.current = nowIndex.current + 1;
@@ -63,9 +71,11 @@ const Slide = () => {
     }, 500);
   };
 
-  const slideImageReSize = () => ({
-    transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
-  });
+  const slideImageReSize = () => {
+    return {
+      transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
+    };
+  };
 
   return (
     <div className='slide'>
@@ -80,13 +90,6 @@ const Slide = () => {
       <button className='btn btn_next' onClick={moveImage}>
         <i className='fas fa-chevron-right'></i>
       </button>
-      <div className='info'>
-        <h2></h2>
-        <h3></h3>
-        <a href='#' className='info_link'>
-          <span>바로가기</span>
-        </a>
-      </div>
     </div>
   );
 };

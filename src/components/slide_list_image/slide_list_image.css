@@ -1,8 +1,38 @@
 .list-card {
+  position: relative;
   list-style: none;
   padding: 0 10px;
 }
 
 .list-img {
   cursor: pointer;
+}
+
+.info {
+  position: absolute;
+  bottom: 28px;
+  left: 34px;
+  width: 330px;
+  height: 146px;
+  padding-left: 20px;
+  background-color: #fff;
+}
+
+.info_title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.info_subTitle {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.info_tag {
+  color: #36f;
+  font-size: 14px;
+  font-weight: 700;
 }

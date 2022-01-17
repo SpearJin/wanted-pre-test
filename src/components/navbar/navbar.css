@@ -8,11 +8,13 @@
   justify-content: space-between;
   align-items: center;
   max-width: 1060px;
+  padding-left: 10px;
   margin: auto;
 }
 
 .logo_icon,
 .logo_name {
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -21,6 +23,10 @@
   font-family: sans-serif;
   color: #393939;
   cursor: pointer;
+}
+
+.navbar_logo {
+  padding: 15px 20px;
 }
 
 .logo_name {
@@ -123,7 +129,7 @@
   display: block;
   width: 1px;
   height: 10px;
-  margin-right: 8px;
+  margin: 16px;
   background-color: #e1e2e3;
   content: '';
 }
@@ -158,6 +164,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .navbar_container {
+    margin: 0;
+  }
+
   .navbar_item:nth-child(1) {
     display: block;
   }
