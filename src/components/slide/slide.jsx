@@ -9,6 +9,10 @@ const Slide = () => {
   const [isMove, setIsMove] = useState(false);
   const nowIndex = useRef(2);
   let timeOut = useRef(null);
+  let touchStartX = useRef(null);
+  let touchStartY = useRef(null);
+  let touchEndX = useRef(null);
+  let touchEndY = useRef(null);
 
   const slideWidth = slideList.current?.children[0].clientWidth || 1011;
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
@@ -77,11 +81,37 @@ const Slide = () => {
     };
   };
 
+  const handlerTouchStart = (e) => {
+    e.preventDefault();
+    touchStartX = e.clientX;
+    touchStartY = e.clientY;
+  };
+
+  const handlerTouchEnd = (e) => {
+    touchEndX = e.clientX;
+    touchEndY = e.clientY;
+    let result = touchEndX - touchStartX;
+    console.log(result);
+    if (result < -100) {
+      nowIndex.current = nowIndex.current + 1;
+    } else if (result > 100) {
+      nowIndex.current = nowIndex.current - 1;
+    }
+    timeOutImage();
+  };
+
   return (
     <div className='slide'>
       <ul className='slide_list' ref={slideList} style={slideImageReSize()}>
         {slideImages.map((img) => {
-          return <SlideListImage key={img.id} img={img} />;
+          return (
+            <SlideListImage
+              key={img.id}
+              img={img}
+              handlerTouchStart={handlerTouchStart}
+              handlerTouchEnd={handlerTouchEnd}
+            />
+          );
         })}
       </ul>
       <button className='btn btn_pre' onClick={moveImage}>
