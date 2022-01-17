@@ -8,6 +8,7 @@ const Slide = () => {
   const [currentIndex, setCurrentIndex] = useState(2);
   const [isMove, setIsMove] = useState(false);
   const nowIndex = useRef(2);
+  let timeOut = useRef(null);
 
   const slideWidth = slideList.current?.children[0].clientWidth || 1080;
   const innerWidth = window.innerWidth;
@@ -18,8 +19,6 @@ const Slide = () => {
     }
     setIsMove(true);
     nowIndex.current = nowIndex.current + 1;
-    const currentImage = slideList.current.querySelectorAll('.list-card');
-    console.log(currentImage);
 
     slideList.current.style.transition = '300ms';
     setCurrentIndex(nowIndex.current);
@@ -36,14 +35,29 @@ const Slide = () => {
 
   useEffect(() => {
     const currentImage = slideList.current.querySelectorAll('.list-card');
-    console.log(currentImage);
     currentImage.forEach((image, index) => {
-      console.log(index, nowIndex.current);
       if (index === nowIndex.current) {
         image.style.filter = 'brightness(100%)';
       } else {
         image.style.filter = 'brightness(30%)';
       }
+
+      clearInterval(timeOut.current);
+      timeOut.current = setInterval(() => {
+        nowIndex.current = nowIndex.current + 1;
+
+        slideList.current.style.transition = '300ms';
+        setCurrentIndex(nowIndex.current);
+
+        setTimeout(() => {
+          if (nowIndex.current > slideImages.length - 3) {
+            nowIndex.current = 2;
+            slideList.current.style.transition = '0s';
+            setCurrentIndex(nowIndex.current);
+          }
+          setIsMove(false);
+        }, 500);
+      }, 3000);
     });
   }, [currentIndex]);
 
