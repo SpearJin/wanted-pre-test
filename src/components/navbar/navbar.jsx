@@ -35,7 +35,7 @@ const Navbar = () => (
         </li>
         <li className='navbar_item'>
           <span className='item_name'>AI 합격예측</span>
-          <span className='item_tag'>New</span>
+          <span className='item_tag'>Beta</span>
         </li>
       </ul>
       <div className='sideMenu'>

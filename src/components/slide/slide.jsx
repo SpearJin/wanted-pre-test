@@ -4,23 +4,20 @@ import './slide.css';
 import slideImages from './slideImageData';
 
 const Slide = () => {
-  const slideList = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(2);
   const [isMove, setIsMove] = useState(false);
+
+  const slideList = useRef(null);
   const nowIndex = useRef(2);
   let timeOut = useRef(null);
   let touchStartX = useRef(null);
-  let touchStartY = useRef(null);
   let touchEndX = useRef(null);
-  let touchEndY = useRef(null);
 
   const slideWidth = slideList.current?.children[0].clientWidth || 1011;
   const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
-  window.addEventListener('resize', () => {
-    setInnerWidth(window.innerWidth);
-  });
-
+  // currentIndex state가 변할때마다 실행하고, nowIndex로 현재 가운데 위치를 파악하여, brightness, display 스타일 값을 줌
+  // clearInterval로 인해 callStack이 쌓이는걸 막고, 3초마다 다음 이미지로 넘어가도록 구현
   useEffect(() => {
     const currentImage = slideList.current.querySelectorAll('.list-card');
     const currentInfo = slideList.current.querySelectorAll('.info');
@@ -45,6 +42,13 @@ const Slide = () => {
     });
   }, [currentIndex]);
 
+  // screen 사이즈가 변할때 마다 이미지 위치를 재정렬
+  window.addEventListener('resize', () => {
+    setInnerWidth(window.innerWidth);
+  });
+
+  // 버튼을 연속으로 누르는걸 방지 하기 위해 isMove state값이 true일때는 return 시킴
+  // 버튼을 클릭시, 다음 버튼인지 이전 버튼인지 파악하고, 조건에 맞게 nowIndex값을 바꿈
   const moveImage = (e) => {
     if (isMove) {
       return;
@@ -59,6 +63,9 @@ const Slide = () => {
     timeOutImage();
   };
 
+  // transition 우선 실행 하고, nowIndex값으로 cuurentIndex state값을 바꿈
+  // 0.5초 후에 이미지가 처음이나 마지막일 경우 조건에 맞게 nowIndex값을 바꾸고, transition 값을 0으로 주고, currentIndex state값을 바꿈
+  // isMove state 값도 false로 바꾸어줌
   const timeOutImage = () => {
     slideList.current.style.transition = '300ms';
     setCurrentIndex(nowIndex.current);
@@ -75,21 +82,23 @@ const Slide = () => {
     }, 500);
   };
 
+  // 이미지에 위치를 정하는 함수
   const slideImageReSize = () => {
     return {
       transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
     };
   };
 
+  // swiper 기능을 위해 마우스를 처음 클랙 햇을때 마우스를 클릭한 x좌표를 구함
   const handlerTouchStart = (e) => {
     e.preventDefault();
     touchStartX = e.clientX;
-    touchStartY = e.clientY;
   };
 
+  // swiper 기능을 위해 마우스를 놓았을때, 마우스를 놓은 x좌료를 구함
+  // touchStartX, touchEndX 값을 계산하여 조건에 맞게 nowIndex 값을 바꾸고, timeOutImage함수를 실행 함
   const handlerTouchEnd = (e) => {
     touchEndX = e.clientX;
-    touchEndY = e.clientY;
     let result = touchEndX - touchStartX;
     console.log(result);
     if (result < -100) {
