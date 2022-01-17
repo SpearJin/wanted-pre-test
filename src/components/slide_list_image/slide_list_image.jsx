@@ -8,7 +8,9 @@ const SlideListImage = ({ img, handlerTouchStart, handlerTouchEnd }) => {
       <div className='info'>
         <h2 className='info_title'>{img.title}</h2>
         <h3 className='info_subTitle'>{img.subTitle}</h3>
-        <p className='info_tag'>바로가기 ></p>
+        <div href='#' className='info_link'>
+          <span className='info_tag'>바로가기 ></span>
+        </div>
       </div>
     </li>
   );

@@ -24,14 +24,22 @@
 }
 
 .info_subTitle {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e5e5e5;
   color: #333;
   font-size: 14px;
   font-weight: 500;
 }
 
+.info_link {
+  display: block;
+  width: calc(100% + 20px);
+  border-top: 1px solid #e5e5e5;
+  text-decoration: none;
+  transform: translateX(-20px);
+}
+
 .info_tag {
+  display: inline-block;
+  padding: 20px;
   color: #36f;
   font-size: 14px;
   font-weight: 700;
