@@ -55,7 +55,7 @@ const Navbar = () => (
             <button className='side_btn'>기업 서비스</button>
           </li>
           <li className='sideMenu_item'>
-            <i class='fas fa-ellipsis-h icon'></i>
+            <i className='fas fa-ellipsis-h icon'></i>
           </li>
         </ul>
       </div>
