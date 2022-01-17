@@ -25,7 +25,6 @@ const Slide = () => {
       } else {
         image.style.filter = 'brightness(30%)';
       }
-
       clearInterval(timeOut.current);
       timeOut.current = setInterval(() => {
         nowIndex.current = nowIndex.current + 1;
@@ -81,6 +80,13 @@ const Slide = () => {
       <button className='btn btn_next' onClick={moveImage}>
         <i className='fas fa-chevron-right'></i>
       </button>
+      <div className='info'>
+        <h2></h2>
+        <h3></h3>
+        <a href='#' className='info_link'>
+          <span>바로가기</span>
+        </a>
+      </div>
     </div>
   );
 };
