@@ -117,6 +117,8 @@ const Slide = () => {
 
   // 이미지에 위치를 정하는 함수
   const slideImageReSize = () => {
+    console.log(innerWidth);
+    console.log(slideWidth);
     return {
       transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
     };
