@@ -15,9 +15,9 @@ const Slide = () => {
   let reSizeTime = useRef(null);
   let touchStartX = useRef(null);
   let touchEndX = useRef(null);
-  let slideWidth = slideList.current?.children[0].clientWidth || 1011;
+  let slideWidth = slideList.current?.children[2].clientWidth || 1011;
   let innerWidth = window.innerWidth;
-  console.log(innerWidth);
+
   // currentIndex state가 변할때마다 실행하고, nowIndex로 현재 가운데 위치를 파악하여, brightness, display 스타일 값을 줌
   // clearInterval로 인해 callStack이 쌓이는걸 막고, 3초마다 다음 이미지로 넘어가도록 구현
   useEffect(() => {
@@ -117,8 +117,8 @@ const Slide = () => {
 
   // 이미지에 위치를 정하는 함수
   const slideImageReSize = () => {
-    console.log(innerWidth);
-    console.log(slideWidth);
+    console.log('innerWidth', innerWidth);
+    console.log('slideWidth', slideWidth);
     return {
       transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
     };
