@@ -9,7 +9,6 @@ const SlideListImage = ({ img, handlerTouchStart, handlerTouchEnd, handlerMouseO
       onMouseUp={handlerTouchEnd}
       onMouseOver={handlerMouseOver}
       onMouseOut={handlerMouseOut}
-      style={{ width: window.innerWidth - 100 }}
     >
       <img className='list-img' src={img.image} alt='' />
       <div className='info'>
