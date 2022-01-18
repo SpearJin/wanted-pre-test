@@ -11,10 +11,11 @@ const Slide = () => {
   const slideList = useRef(null);
   const nowIndex = useRef(2);
   let timeOut = useRef(null);
+  let imgTimeOut = useRef(null);
   let reSizeTime = useRef(null);
   let touchStartX = useRef(null);
   let touchEndX = useRef(null);
-  let slideWidth = slideList.current?.children[0].clientWidth;
+  let slideWidth = slideList.current?.children[0].clientWidth || 1011;
   let innerWidth = window.innerWidth;
 
   // currentIndex state가 변할때마다 실행하고, nowIndex로 현재 가운데 위치를 파악하여, brightness, display 스타일 값을 줌
@@ -35,6 +36,7 @@ const Slide = () => {
           info.style.display = 'none';
         }
       });
+      clearTimeout(imgTimeOut.current);
       clearInterval(timeOut.current);
       intervalTime();
     });
@@ -121,6 +123,7 @@ const Slide = () => {
   };
 
   const intervalTime = () => {
+    clearInterval(timeOut.current);
     timeOut.current = setInterval(() => {
       nowIndex.current = nowIndex.current + 1;
       timeOutImage();
