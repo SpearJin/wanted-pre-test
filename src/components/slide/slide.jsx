@@ -7,7 +7,6 @@ const Slide = () => {
   const [currentIndex, setCurrentIndex] = useState(2);
   const [isMove, setIsMove] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
-  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
   const slideList = useRef(null);
   const nowIndex = useRef(2);
@@ -15,6 +14,7 @@ const Slide = () => {
   let touchStartX = useRef(null);
   let touchEndX = useRef(null);
   let slideWidth = slideList.current?.children[0].clientWidth;
+  let innerWidth = window.innerWidth;
 
   // currentIndex state가 변할때마다 실행하고, nowIndex로 현재 가운데 위치를 파악하여, brightness, display 스타일 값을 줌
   // clearInterval로 인해 callStack이 쌓이는걸 막고, 3초마다 다음 이미지로 넘어가도록 구현
@@ -40,13 +40,14 @@ const Slide = () => {
         timeOutImage();
       }, 3000);
     });
-    setIsLoad(true);
+    setIsLoad(!isLoad);
     slideImageReSize();
   }, [currentIndex]);
 
   // screen 사이즈가 변할때 마다 이미지 위치를 재정렬
   window.addEventListener('resize', () => {
-    setInnerWidth(window.innerWidth);
+    setIsLoad(!isLoad);
+    slideImageReSize();
   });
 
   // 버튼을 연속으로 누르는걸 방지 하기 위해 isMove state값이 true일때는 return 시킴
