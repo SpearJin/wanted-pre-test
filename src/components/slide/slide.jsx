@@ -6,15 +6,15 @@ import slideImages from './slideImageData';
 const Slide = () => {
   const [currentIndex, setCurrentIndex] = useState(2);
   const [isMove, setIsMove] = useState(false);
+  const [isLoad, setIsLoad] = useState(false);
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
   const slideList = useRef(null);
   const nowIndex = useRef(2);
   let timeOut = useRef(null);
   let touchStartX = useRef(null);
   let touchEndX = useRef(null);
-
-  const slideWidth = slideList.current?.children[0].clientWidth || 1011;
-  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+  let slideWidth = slideList.current?.children[0].clientWidth;
 
   // currentIndex state가 변할때마다 실행하고, nowIndex로 현재 가운데 위치를 파악하여, brightness, display 스타일 값을 줌
   // clearInterval로 인해 callStack이 쌓이는걸 막고, 3초마다 다음 이미지로 넘어가도록 구현
@@ -40,6 +40,8 @@ const Slide = () => {
         timeOutImage();
       }, 3000);
     });
+    setIsLoad(true);
+    slideImageReSize();
   }, [currentIndex]);
 
   // screen 사이즈가 변할때 마다 이미지 위치를 재정렬
@@ -100,7 +102,6 @@ const Slide = () => {
   const handlerTouchEnd = (e) => {
     touchEndX = e.clientX;
     let result = touchEndX - touchStartX;
-    console.log(result);
     if (result < -100) {
       nowIndex.current = nowIndex.current + 1;
     } else if (result > 100) {
