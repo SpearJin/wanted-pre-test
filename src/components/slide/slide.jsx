@@ -119,6 +119,7 @@ const Slide = () => {
   const slideImageReSize = () => {
     console.log('innerWidth', innerWidth);
     console.log('slideWidth', slideWidth);
+    console.log(slideList.current?.children[2].getBoundingClientRect());
     return {
       transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
     };

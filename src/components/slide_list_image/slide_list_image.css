@@ -1,11 +1,12 @@
 .list-card {
   position: relative;
-  width: 1060px;
   list-style: none;
   padding: 0 10px;
 }
 
 .list-img {
+  max-width: 1060px;
+  height: 100%;
   cursor: pointer;
 }
 
