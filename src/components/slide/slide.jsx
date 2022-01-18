@@ -11,6 +11,7 @@ const Slide = () => {
   const slideList = useRef(null);
   const nowIndex = useRef(2);
   let timeOut = useRef(null);
+  let reSizeTime = useRef(null);
   let touchStartX = useRef(null);
   let touchEndX = useRef(null);
   let slideWidth = slideList.current?.children[0].clientWidth;
@@ -43,8 +44,11 @@ const Slide = () => {
 
   // screen 사이즈가 변할때 마다 이미지 위치를 재정렬
   window.addEventListener('resize', () => {
-    setIsLoad(!isLoad);
-    slideImageReSize();
+    clearTimeout(reSizeTime);
+    reSizeTime = setTimeout(() => {
+      setIsLoad(!isLoad);
+      slideImageReSize();
+    }, 300);
   });
 
   // swiper 기능을 위해 마우스를 처음 클랙 햇을때 마우스를 클릭한 x좌표를 구함
