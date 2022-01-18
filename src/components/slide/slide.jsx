@@ -35,10 +35,7 @@ const Slide = () => {
         }
       });
       clearInterval(timeOut.current);
-      timeOut.current = setInterval(() => {
-        nowIndex.current = nowIndex.current + 1;
-        timeOutImage();
-      }, 3000);
+      intervalTime();
     });
     setIsLoad(!isLoad);
     slideImageReSize();
@@ -49,6 +46,33 @@ const Slide = () => {
     setIsLoad(!isLoad);
     slideImageReSize();
   });
+
+  // swiper 기능을 위해 마우스를 처음 클랙 햇을때 마우스를 클릭한 x좌표를 구함
+  const handlerTouchStart = (e) => {
+    e.preventDefault();
+    touchStartX = e.clientX;
+  };
+
+  // swiper 기능을 위해 마우스를 놓았을때, 마우스를 놓은 x좌료를 구함
+  // touchStartX, touchEndX 값을 계산하여 조건에 맞게 nowIndex 값을 바꾸고, timeOutImage함수를 실행 함
+  const handlerTouchEnd = (e) => {
+    touchEndX = e.clientX;
+    let result = touchEndX - touchStartX;
+    if (result < -100) {
+      nowIndex.current = nowIndex.current + 1;
+    } else if (result > 100) {
+      nowIndex.current = nowIndex.current - 1;
+    }
+    timeOutImage();
+  };
+
+  const handlerMouseOver = () => {
+    clearInterval(timeOut.current);
+  };
+
+  const handlerMouseOut = () => {
+    intervalTime();
+  };
 
   // 버튼을 연속으로 누르는걸 방지 하기 위해 isMove state값이 true일때는 return 시킴
   // 버튼을 클릭시, 다음 버튼인지 이전 버튼인지 파악하고, 조건에 맞게 nowIndex값을 바꿈
@@ -92,23 +116,11 @@ const Slide = () => {
     };
   };
 
-  // swiper 기능을 위해 마우스를 처음 클랙 햇을때 마우스를 클릭한 x좌표를 구함
-  const handlerTouchStart = (e) => {
-    e.preventDefault();
-    touchStartX = e.clientX;
-  };
-
-  // swiper 기능을 위해 마우스를 놓았을때, 마우스를 놓은 x좌료를 구함
-  // touchStartX, touchEndX 값을 계산하여 조건에 맞게 nowIndex 값을 바꾸고, timeOutImage함수를 실행 함
-  const handlerTouchEnd = (e) => {
-    touchEndX = e.clientX;
-    let result = touchEndX - touchStartX;
-    if (result < -100) {
+  const intervalTime = () => {
+    timeOut.current = setInterval(() => {
       nowIndex.current = nowIndex.current + 1;
-    } else if (result > 100) {
-      nowIndex.current = nowIndex.current - 1;
-    }
-    timeOutImage();
+      timeOutImage();
+    }, 3000);
   };
 
   return (
@@ -121,6 +133,8 @@ const Slide = () => {
               img={img}
               handlerTouchStart={handlerTouchStart}
               handlerTouchEnd={handlerTouchEnd}
+              handlerMouseOver={handlerMouseOver}
+              handlerMouseOut={handlerMouseOut}
             />
           );
         })}

@@ -1,12 +1,14 @@
 import React, { useRef } from 'react';
 import './slide_list_image.css';
 
-const SlideListImage = ({ img, handlerTouchStart, handlerTouchEnd }) => {
+const SlideListImage = ({ img, handlerTouchStart, handlerTouchEnd, handlerMouseOver, handlerMouseOut }) => {
   return (
     <li
       className='list-card'
       onMouseDown={handlerTouchStart}
       onMouseUp={handlerTouchEnd}
+      onMouseOver={handlerMouseOver}
+      onMouseOut={handlerMouseOut}
       style={{ width: window.innerWidth - 100 }}
     >
       <img className='list-img' src={img.image} alt='' />
