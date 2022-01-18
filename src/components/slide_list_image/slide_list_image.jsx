@@ -3,7 +3,12 @@ import './slide_list_image.css';
 
 const SlideListImage = ({ img, handlerTouchStart, handlerTouchEnd }) => {
   return (
-    <li className='list-card' onMouseDown={handlerTouchStart} onMouseUp={handlerTouchEnd}>
+    <li
+      className='list-card'
+      onMouseDown={handlerTouchStart}
+      onMouseUp={handlerTouchEnd}
+      style={{ width: window.innerWidth - 100 }}
+    >
       <img className='list-img' src={img.image} alt='' />
       <div className='info'>
         <h2 className='info_title'>{img.title}</h2>
