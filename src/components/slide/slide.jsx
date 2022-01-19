@@ -64,9 +64,9 @@ const Slide = () => {
   const handlerTouchEnd = (e) => {
     touchEndX = e.clientX;
     if (touchStartX + 100 < touchEndX) {
-      nowIndex.current = nowIndex.current + 1;
-    } else if (touchStartX > touchEndX + 100) {
       nowIndex.current = nowIndex.current - 1;
+    } else if (touchStartX > touchEndX + 100) {
+      nowIndex.current = nowIndex.current + 1;
     }
     timeOutImage();
   };
