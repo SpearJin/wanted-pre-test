@@ -8,15 +8,15 @@ const Slide = () => {
   const [isMove, setIsMove] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
 
-  const slideList = useRef(null);
-  const nowIndex = useRef(2);
+  let slideList = useRef(null);
+  let nowIndex = useRef(2);
   let timeOut = useRef(null);
   let imgTimeOut = useRef(null);
   let reSizeTime = useRef(null);
   let touchStartX = useRef(null);
   let touchEndX = useRef(null);
-  let slideWidth = slideList.current?.children[2].getBoundingClientRect().width;
   let innerWidth = window.innerWidth;
+  let slideWidth = slideList.current?.children[2].getBoundingClientRect().width;
 
   // currentIndex state가 변할때마다 실행하고, nowIndex로 현재 가운데 위치를 파악하여, brightness, display 스타일 값을 줌
   // clearInterval로 인해 callStack이 쌓이는걸 막고, 3초마다 다음 이미지로 넘어가도록 구현
@@ -50,7 +50,7 @@ const Slide = () => {
     reSizeTime = setTimeout(() => {
       setIsLoad(!isLoad);
       slideImageReSize();
-    }, 300);
+    }, 200);
   });
 
   // swiper 기능을 위해 마우스를 처음 클랙 햇을때 마우스를 클릭한 x좌표를 구함
@@ -63,7 +63,6 @@ const Slide = () => {
   // touchStartX, touchEndX 값을 계산하여 조건에 맞게 nowIndex 값을 바꾸고, timeOutImage함수를 실행 함
   const handlerTouchEnd = (e) => {
     touchEndX = e.clientX;
-    let result = touchEndX - touchStartX;
     if (touchStartX + 100 < touchEndX) {
       nowIndex.current = nowIndex.current + 1;
     } else if (touchStartX > touchEndX + 100) {
@@ -72,10 +71,12 @@ const Slide = () => {
     timeOutImage();
   };
 
+  // 이미지 선택시 setInterval 멈춤
   const handlerMouseOver = () => {
     clearInterval(timeOut.current);
   };
 
+  // 이미지에서 선택을 안하면 다시 setInterval 실행
   const handlerMouseOut = () => {
     intervalTime();
   };
@@ -117,20 +118,18 @@ const Slide = () => {
 
   // 이미지에 위치를 정하는 함수
   const slideImageReSize = () => {
-    console.log('innerWidth', innerWidth);
-    console.log('slideWidth', slideWidth);
-    // console.log(slideList.current?.children[2].getBoundingClientRect());
     return {
       transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
     };
   };
 
+  // 인터벌이 일어나는 함수
   const intervalTime = () => {
     clearInterval(timeOut.current);
     timeOut.current = setInterval(() => {
       nowIndex.current = nowIndex.current + 1;
       timeOutImage();
-    }, 3000);
+    }, 2000);
   };
 
   return (
