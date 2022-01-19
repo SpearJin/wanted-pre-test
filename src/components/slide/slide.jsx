@@ -64,9 +64,9 @@ const Slide = () => {
   const handlerTouchEnd = (e) => {
     touchEndX = e.clientX;
     let result = touchEndX - touchStartX;
-    if (result < -100) {
+    if (touchStartX + 100 < touchEndX) {
       nowIndex.current = nowIndex.current + 1;
-    } else if (result > 100) {
+    } else if (touchStartX > touchEndX + 100) {
       nowIndex.current = nowIndex.current - 1;
     }
     timeOutImage();
@@ -119,7 +119,7 @@ const Slide = () => {
   const slideImageReSize = () => {
     console.log('innerWidth', innerWidth);
     console.log('slideWidth', slideWidth);
-    console.log(slideList.current?.children[2].getBoundingClientRect());
+    // console.log(slideList.current?.children[2].getBoundingClientRect());
     return {
       transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
     };
