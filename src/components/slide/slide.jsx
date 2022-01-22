@@ -9,7 +9,6 @@ const Slide = () => {
   const [isLoad, setIsLoad] = useState(false);
 
   let slideList = useRef(null);
-  let nowIndex = useRef(2);
   let timeOut = useRef(null);
   let imgTimeOut = useRef(null);
   let reSizeTime = useRef(null);
@@ -24,13 +23,13 @@ const Slide = () => {
     const currentImage = slideList.current.querySelectorAll('.list-card');
     const currentInfo = slideList.current.querySelectorAll('.info');
     currentImage.forEach((image, index) => {
-      if (index === nowIndex.current) {
+      if (index === currentIndex) {
         image.style.filter = 'brightness(100%)';
       } else {
         image.style.filter = 'brightness(30%)';
       }
       currentInfo.forEach((info, index) => {
-        if (index === nowIndex.current) {
+        if (index === currentIndex) {
           info.style.display = 'block';
         } else {
           info.style.display = 'none';
@@ -63,12 +62,13 @@ const Slide = () => {
   // touchStartX, touchEndX 값을 계산하여 조건에 맞게 nowIndex 값을 바꾸고, timeOutImage함수를 실행 함
   const handlerTouchEnd = (e) => {
     touchEndX = e.clientX;
+    let nextIndex;
     if (touchStartX + 100 < touchEndX) {
-      nowIndex.current = nowIndex.current - 1;
+      nextIndex = currentIndex - 1;
     } else if (touchStartX > touchEndX + 100) {
-      nowIndex.current = nowIndex.current + 1;
+      nextIndex = currentIndex + 1;
     }
-    timeOutImage();
+    timeOutImage(nextIndex);
   };
 
   // 이미지 선택시 setInterval 멈춤
@@ -83,35 +83,32 @@ const Slide = () => {
 
   // 버튼을 연속으로 누르는걸 방지 하기 위해 isMove state값이 true일때는 return 시킴
   // 버튼을 클릭시, 다음 버튼인지 이전 버튼인지 파악하고, 조건에 맞게 nowIndex값을 바꿈
-  const moveImage = (e) => {
+  const generateNextIndex = (e) => {
     if (isMove) {
       return;
     }
+    let nextIndex;
     setIsMove(true);
     const target = e.target.nodeName === 'BUTTON' ? e.target : e.target.closest('.btn');
     if (target.className.includes('btn_pre')) {
-      nowIndex.current = nowIndex.current - 1;
+      nextIndex = currentIndex - 1;
     } else {
-      nowIndex.current = nowIndex.current + 1;
+      nextIndex = currentIndex + 1;
     }
-    timeOutImage();
+    timeOutImage(nextIndex);
   };
 
   // transition 우선 실행 하고, nowIndex값으로 cuurentIndex state값을 바꿈
   // 0.5초 후에 이미지가 처음이나 마지막일 경우 조건에 맞게 nowIndex값을 바꾸고, transition 값을 0으로 주고, currentIndex state값을 바꿈
   // isMove state 값도 false로 바꾸어줌
-  const timeOutImage = () => {
+  const timeOutImage = (nextIndex) => {
     slideList.current.style.transition = '300ms';
-    setCurrentIndex(nowIndex.current);
+
+    setCurrentIndex(nextIndex);
     setTimeout(() => {
-      nowIndex.current =
-        nowIndex.current <= 1
-          ? slideImages.length - 3
-          : nowIndex.current > slideImages.length - 3
-          ? 2
-          : nowIndex.current;
+      nextIndex = nextIndex <= 1 ? slideImages.length - 3 : nextIndex > slideImages.length - 3 ? 2 : nextIndex;
       slideList.current.style.transition = '0s';
-      setCurrentIndex(nowIndex.current);
+      setCurrentIndex(nextIndex);
       setIsMove(false);
     }, 500);
   };
@@ -127,8 +124,7 @@ const Slide = () => {
   const intervalTime = () => {
     clearInterval(timeOut.current);
     timeOut.current = setInterval(() => {
-      nowIndex.current = nowIndex.current + 1;
-      timeOutImage();
+      timeOutImage(currentIndex + 1);
     }, 2000);
   };
 
@@ -148,10 +144,10 @@ const Slide = () => {
           );
         })}
       </ul>
-      <button className='btn btn_pre' onClick={moveImage}>
+      <button className='btn btn_pre' onClick={generateNextIndex}>
         <i className='fas fa-chevron-left'></i>
       </button>
-      <button className='btn btn_next' onClick={moveImage}>
+      <button className='btn btn_next' onClick={generateNextIndex}>
         <i className='fas fa-chevron-right'></i>
       </button>
     </div>
