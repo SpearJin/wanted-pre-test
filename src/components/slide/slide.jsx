@@ -66,6 +66,8 @@ const Slide = () => {
       nextIndex = currentIndex - 1;
     } else if (touchStartX > touchEndX + 100) {
       nextIndex = currentIndex + 1;
+    } else {
+      return;
     }
     moveImage(nextIndex);
   };
