@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './slide_list_image.css';
 
 const SlideListImage = ({ img, handlerTouchStart, handlerTouchEnd, handlerMouseOver, handlerMouseOut }) => {

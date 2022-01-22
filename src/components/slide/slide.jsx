@@ -9,11 +9,11 @@ const Slide = () => {
   const [isLoad, setIsLoad] = useState(false);
 
   let slideList = useRef(null);
-  let timeOut = useRef(null);
-  let imgTimeOut = useRef(null);
+  let intervalTimeOut = useRef(null);
   let reSizeTime = useRef(null);
   let touchStartX = useRef(null);
   let touchEndX = useRef(null);
+
   let innerWidth = window.innerWidth;
   let slideWidth = slideList.current?.children[2].getBoundingClientRect().width;
 
@@ -35,8 +35,7 @@ const Slide = () => {
           info.style.display = 'none';
         }
       });
-      clearTimeout(imgTimeOut.current);
-      clearInterval(timeOut.current);
+      clearInterval(intervalTimeOut.current);
       intervalTime();
     });
     setIsLoad(!isLoad);
@@ -59,7 +58,7 @@ const Slide = () => {
   };
 
   // swiper 기능을 위해 마우스를 놓았을때, 마우스를 놓은 x좌료를 구함
-  // touchStartX, touchEndX 값을 계산하여 조건에 맞게 nowIndex 값을 바꾸고, timeOutImage함수를 실행 함
+  // touchStartX, touchEndX 값을 계산하여 조건에 맞게 nowIndex 값을 바꾸고, moveImage함수를 실행 함
   const handlerTouchEnd = (e) => {
     touchEndX = e.clientX;
     let nextIndex;
@@ -68,12 +67,12 @@ const Slide = () => {
     } else if (touchStartX > touchEndX + 100) {
       nextIndex = currentIndex + 1;
     }
-    timeOutImage(nextIndex);
+    moveImage(nextIndex);
   };
 
   // 이미지 선택시 setInterval 멈춤
   const handlerMouseOver = () => {
-    clearInterval(timeOut.current);
+    clearInterval(intervalTimeOut.current);
   };
 
   // 이미지에서 선택을 안하면 다시 setInterval 실행
@@ -95,15 +94,14 @@ const Slide = () => {
     } else {
       nextIndex = currentIndex + 1;
     }
-    timeOutImage(nextIndex);
+    moveImage(nextIndex);
   };
 
   // transition 우선 실행 하고, nowIndex값으로 cuurentIndex state값을 바꿈
   // 0.5초 후에 이미지가 처음이나 마지막일 경우 조건에 맞게 nowIndex값을 바꾸고, transition 값을 0으로 주고, currentIndex state값을 바꿈
   // isMove state 값도 false로 바꾸어줌
-  const timeOutImage = (nextIndex) => {
+  const moveImage = (nextIndex) => {
     slideList.current.style.transition = '300ms';
-
     setCurrentIndex(nextIndex);
     setTimeout(() => {
       nextIndex = nextIndex <= 1 ? slideImages.length - 3 : nextIndex > slideImages.length - 3 ? 2 : nextIndex;
@@ -122,9 +120,9 @@ const Slide = () => {
 
   // 인터벌이 일어나는 함수
   const intervalTime = () => {
-    clearInterval(timeOut.current);
-    timeOut.current = setInterval(() => {
-      timeOutImage(currentIndex + 1);
+    clearInterval(intervalTimeOut.current);
+    intervalTimeOut.current = setInterval(() => {
+      moveImage(currentIndex + 1);
     }, 2000);
   };
 
