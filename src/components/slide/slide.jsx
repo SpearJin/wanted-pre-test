@@ -130,17 +130,17 @@ const Slide = () => {
 
   return (
     <div className='slide'>
-      <ul className='slide_list' ref={slideList} style={slideImageReSize()}>
+      <ul
+        className='slide_list'
+        ref={slideList}
+        style={slideImageReSize()}
+        onMouseDown={handlerTouchStart}
+        onMouseUp={handlerTouchEnd}
+        onMouseOver={handlerMouseOver}
+        onMouseOut={handlerMouseOut}
+      >
         {slideImages.map((img) => (
-          <SlideListImage
-            key={img.id}
-            img={img}
-            handlerTouchStart={handlerTouchStart}
-            handlerTouchEnd={handlerTouchEnd}
-            handlerMouseOver={handlerMouseOver}
-            handlerMouseOut={handlerMouseOut}
-            setSlideWidth={setSlideWidth}
-          />
+          <SlideListImage key={img.id} img={img} setSlideWidth={setSlideWidth} />
         ))}
       </ul>
       <button className='btn btn_pre' onClick={generateNextIndex}>

@@ -1,21 +1,10 @@
 import React from 'react';
 import './slide_list_image.css';
 
-const SlideListImage = ({
-  img,
-  handlerTouchStart,
-  handlerTouchEnd,
-  handlerMouseOver,
-  handlerMouseOut,
-  setSlideWidth,
-}) => {
+const SlideListImage = ({ img, setSlideWidth }) => {
   return (
     <li
       className='list-card'
-      onMouseDown={handlerTouchStart}
-      onMouseUp={handlerTouchEnd}
-      onMouseOver={handlerMouseOver}
-      onMouseOut={handlerMouseOut}
       style={{ width: window.innerWidth - 100 }}
       ref={(ref) => {
         if (ref) {
