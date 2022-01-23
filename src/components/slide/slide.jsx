@@ -103,7 +103,7 @@ const Slide = ({ slideImages }) => {
   // });
 
   useEffect(() => {
-    const nowWidth = await slideList.current?.children[0].getBoundingClientRect().width;
+    const nowWidth = slideList.current?.children[0].getBoundingClientRect().width;
     setSlideWidth(nowWidth);
   }, []);
 
