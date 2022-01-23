@@ -104,7 +104,13 @@ const Slide = ({ slideImages }) => {
     slideList.current.style.transition = '300ms';
     setCurrentIndex(nextIndex);
     setTimeout(() => {
-      nextIndex = nextIndex <= 1 ? slideImages.length - 3 : nextIndex > slideImages.length - 3 ? 2 : nextIndex;
+      console.log(slideImages.length);
+      nextIndex =
+        nextIndex <= 1
+          ? slideList.current.children.length - 3
+          : nextIndex > slideList.current.children.length - 3
+          ? 2
+          : nextIndex;
       slideList.current.style.transition = '0s';
       setCurrentIndex(nextIndex);
       setIsMove(false);
@@ -138,7 +144,11 @@ const Slide = ({ slideImages }) => {
         onMouseOver={handlerMouseOver}
         onMouseOut={handlerMouseOut}
       >
-        {slideImages.map((img, index) => (
+        {[
+          ...slideImages.slice(slideImages.length - 2, slideImages.length),
+          ...slideImages,
+          ...slideImages.slice(0, 2),
+        ].map((img, index) => (
           <SlideListImage key={img.id} img={img} index={index} setSlideWidth={setSlideWidth} />
         ))}
       </ul>
