@@ -3,16 +3,17 @@ import './slide_list_image.css';
 
 const SlideListImage = ({ img, index, setSlideWidth }) => {
   return (
-    <li
-      className='list-card'
-      style={{ width: window.innerWidth - 100 }}
-      ref={(item) => {
-        if (item && index === 0) {
-          setSlideWidth(item.getBoundingClientRect().width);
-        }
-      }}
-    >
-      <img className='list-img' src={img.image} alt='' />
+    <li className='list-card' style={{ width: window.innerWidth - 100 }}>
+      <img
+        className='list-img'
+        src={img.image}
+        alt=''
+        ref={(item) => {
+          if (item && index === 0) {
+            setSlideWidth(item.getBoundingClientRect().width);
+          }
+        }}
+      />
       <div className='info'>
         <h2 className='info_title'>{img.title}</h2>
         <h3 className='info_subTitle'>{img.subTitle}</h3>

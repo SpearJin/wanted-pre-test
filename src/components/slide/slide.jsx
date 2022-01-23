@@ -43,6 +43,7 @@ const Slide = () => {
 
   // screen 사이즈가 변할때 마다 이미지 위치를 재정렬
   window.addEventListener('resize', () => {
+    console.log('resize');
     clearTimeout(reSizeTime);
     reSizeTime = setTimeout(() => {
       setIsLoad(!isLoad);
