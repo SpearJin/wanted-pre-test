@@ -5,6 +5,7 @@
 }
 
 .list-img {
+  display: block;
   width: 66em;
   cursor: pointer;
 }
