@@ -12,7 +12,9 @@ const SlideListImage = ({ img, index, setSlideWidth }) => {
         }
       }}
     >
-      <img className='list-img' src={img.image} alt='' />
+      <a className='list-link'>
+        <img className='list-img' src={img.image} alt='' />
+      </a>
       <div className='info'>
         <h2 className='info_title'>{img.title}</h2>
         <h3 className='info_subTitle'>{img.subTitle}</h3>
