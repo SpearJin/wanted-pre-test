@@ -97,15 +97,10 @@ const Slide = ({ slideImages }) => {
     moveImage(nextIndex);
   };
 
-  // window.addEventListener('load', async () => {
-  //   const nowWidth = await slideList.current?.children[0].getBoundingClientRect().width;
-  //   setSlideWidth(nowWidth);
-  // });
-
-  useEffect(() => {
+  window.addEventListener('load', () => {
     const nowWidth = slideList.current?.children[0].getBoundingClientRect().width;
     setSlideWidth(nowWidth);
-  }, []);
+  });
 
   // transition 우선 실행 하고, nowIndex값으로 cuurentIndex state값을 바꿈
   // 0.5초 후에 이미지가 처음이나 마지막일 경우 조건에 맞게 nowIndex값을 바꾸고, transition 값을 0으로 주고, currentIndex state값을 바꿈
