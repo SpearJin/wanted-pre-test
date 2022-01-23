@@ -5,8 +5,7 @@
 }
 
 .list-img {
-  /* width: 66.25rem; */
-  height: 300px;
+  max-width: 66.25rem;
   cursor: pointer;
 }
 
