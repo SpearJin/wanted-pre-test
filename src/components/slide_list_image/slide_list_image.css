@@ -1,11 +1,11 @@
 .list-card {
   position: relative;
   list-style: none;
+
   padding: 0 10px;
 }
 
 .list-img {
-  width: 66.25rem;
   object-fit: cover;
   cursor: pointer;
 }
@@ -48,7 +48,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 1199px) {
+@media screen and (max-width: 1100px) {
   .btn {
     display: none;
   }
