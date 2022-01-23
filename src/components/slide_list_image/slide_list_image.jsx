@@ -5,6 +5,7 @@ const SlideListImage = ({ img, index, setSlideWidth }) => {
   return (
     <li
       className='list-card'
+      style={{ width: window.innerWidth - 100 }}
       ref={(item) => {
         if (item && index === 0) {
           setSlideWidth(item.getBoundingClientRect().width);

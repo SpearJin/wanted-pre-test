@@ -1,5 +1,6 @@
 .list-card {
   position: relative;
+  display: flex;
   list-style: none;
   padding: 0 10px;
 }
