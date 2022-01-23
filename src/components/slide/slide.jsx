@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import SlideListImage from '../slide_list_image/slide_list_image';
 import './slide.css';
-import slideImages from './slideImageData';
 
-const Slide = () => {
+const Slide = ({ slideImages }) => {
   const [currentIndex, setCurrentIndex] = useState(2);
   let [slideWidth, setSlideWidth] = useState(0);
   const [isMove, setIsMove] = useState(false);
