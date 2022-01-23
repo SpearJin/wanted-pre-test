@@ -1,13 +1,13 @@
 import React from 'react';
 import './slide_list_image.css';
 
-const SlideListImage = ({ img, setSlideWidth }) => {
+const SlideListImage = ({ img, index, setSlideWidth }) => {
   return (
     <li
       className='list-card'
       style={{ width: window.innerWidth - 100 }}
       ref={(ref) => {
-        if (ref) {
+        if (ref && index === 0) {
           setSlideWidth(ref.getBoundingClientRect().width);
         }
       }}

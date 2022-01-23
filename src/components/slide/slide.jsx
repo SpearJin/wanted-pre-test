@@ -139,8 +139,8 @@ const Slide = () => {
         onMouseOver={handlerMouseOver}
         onMouseOut={handlerMouseOut}
       >
-        {slideImages.map((img) => (
-          <SlideListImage key={img.id} img={img} setSlideWidth={setSlideWidth} />
+        {slideImages.map((img, index) => (
+          <SlideListImage key={img.id} img={img} index={index} setSlideWidth={setSlideWidth} />
         ))}
       </ul>
       <button className='btn btn_pre' onClick={generateNextIndex}>
