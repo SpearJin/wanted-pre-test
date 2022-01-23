@@ -6,15 +6,13 @@ const SlideListImage = ({ img, index, setSlideWidth }) => {
     <li
       className='list-card'
       style={{ width: window.innerWidth - 100 }}
-      ref={(ref) => {
-        if (ref && index === 0) {
-          setSlideWidth(ref.getBoundingClientRect().width);
+      ref={(item) => {
+        if (item && index === 0) {
+          setSlideWidth(item.getBoundingClientRect().width);
         }
       }}
     >
-      <a className='list-link'>
-        <img className='list-img' src={img.image} alt='' />
-      </a>
+      <img className='list-img' src={img.image} alt='' />
       <div className='info'>
         <h2 className='info_title'>{img.title}</h2>
         <h3 className='info_subTitle'>{img.subTitle}</h3>

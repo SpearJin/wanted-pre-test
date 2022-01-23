@@ -2,17 +2,10 @@
   position: relative;
   list-style: none;
   padding: 0 10px;
-  min-height: 1px;
-}
-
-.list-link {
-  display: block;
-  height: 100%;
-  line-height: 0;
 }
 
 .list-img {
-  width: 66em;
+  width: 66.25rem;
   height: 100%;
   cursor: pointer;
 }
