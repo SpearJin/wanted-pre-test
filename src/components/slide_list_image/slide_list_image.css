@@ -1,11 +1,11 @@
 .list-card {
   position: relative;
-  display: flex;
   list-style: none;
-  padding: 0 10px;
+  /* padding: 0 10px; */
 }
 
 .list-img {
+  padding: 0 10px;
   width: 66.25rem;
   cursor: pointer;
 }

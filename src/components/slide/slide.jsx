@@ -38,7 +38,6 @@ const Slide = () => {
       clearInterval(intervalTimeOut.current);
       intervalTime();
     });
-    setIsLoad(!isLoad);
   }, [currentIndex]);
 
   // screen 사이즈가 변할때 마다 이미지 위치를 재정렬
