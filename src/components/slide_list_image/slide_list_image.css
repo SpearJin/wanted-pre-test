@@ -1,13 +1,14 @@
 .list-card {
   position: relative;
   list-style: none;
-
   padding: 0 10px;
 }
 
 .list-img {
+  width: 66.25rem;
   object-fit: cover;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .info {
