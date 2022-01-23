@@ -1,5 +1,5 @@
 .navbar {
-  /* width: 100%; */
+  width: 100%;
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -7,8 +7,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* max-width: 1060px; */
-  /* padding-left: 10px; */
+  max-width: 1060px;
+  padding-left: 10px;
   margin: auto;
 }
 
