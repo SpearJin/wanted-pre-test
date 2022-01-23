@@ -5,6 +5,7 @@ import slideImages from './slideImageData';
 
 const Slide = () => {
   const [currentIndex, setCurrentIndex] = useState(2);
+  let [slideWidth, setSlideWidth] = useState(0);
   const [isMove, setIsMove] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
 
@@ -15,8 +16,7 @@ const Slide = () => {
   let touchEndX = useRef(null);
 
   let innerWidth = window.innerWidth;
-  let slideWidth = slideList.current?.children[2].getBoundingClientRect().width;
-
+  // slideList.current?.children[0].getBoundingClientRect().width;
   // currentIndex state가 변할때마다 실행하고, nowIndex로 현재 가운데 위치를 파악하여, brightness, display 스타일 값을 줌
   // clearInterval로 인해 callStack이 쌓이는걸 막고, 3초마다 다음 이미지로 넘어가도록 구현
   useEffect(() => {
@@ -39,7 +39,6 @@ const Slide = () => {
       intervalTime();
     });
     setIsLoad(!isLoad);
-    slideImageReSize();
   }, [currentIndex]);
 
   // screen 사이즈가 변할때 마다 이미지 위치를 재정렬
@@ -115,6 +114,7 @@ const Slide = () => {
 
   // 이미지에 위치를 정하는 함수
   const slideImageReSize = () => {
+    console.log(slideWidth);
     return {
       transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
     };
@@ -131,18 +131,17 @@ const Slide = () => {
   return (
     <div className='slide'>
       <ul className='slide_list' ref={slideList} style={slideImageReSize()}>
-        {slideImages.map((img) => {
-          return (
-            <SlideListImage
-              key={img.id}
-              img={img}
-              handlerTouchStart={handlerTouchStart}
-              handlerTouchEnd={handlerTouchEnd}
-              handlerMouseOver={handlerMouseOver}
-              handlerMouseOut={handlerMouseOut}
-            />
-          );
-        })}
+        {slideImages.map((img) => (
+          <SlideListImage
+            key={img.id}
+            img={img}
+            handlerTouchStart={handlerTouchStart}
+            handlerTouchEnd={handlerTouchEnd}
+            handlerMouseOver={handlerMouseOver}
+            handlerMouseOut={handlerMouseOut}
+            setSlideWidth={setSlideWidth}
+          />
+        ))}
       </ul>
       <button className='btn btn_pre' onClick={generateNextIndex}>
         <i className='fas fa-chevron-left'></i>
