@@ -15,7 +15,7 @@ const Slide = ({ slideImages }) => {
   let touchEndX = useRef(null);
 
   let innerWidth = window.innerWidth;
-  // slideList.current?.children[0].getBoundingClientRect().width;
+
   // currentIndex state가 변할때마다 실행하고, nowIndex로 현재 가운데 위치를 파악하여, brightness, display 스타일 값을 줌
   // clearInterval로 인해 callStack이 쌓이는걸 막고, 3초마다 다음 이미지로 넘어가도록 구현
   useEffect(() => {
@@ -41,7 +41,6 @@ const Slide = ({ slideImages }) => {
 
   // screen 사이즈가 변할때 마다 이미지 위치를 재정렬
   window.addEventListener('resize', () => {
-    console.log('resize');
     clearTimeout(reSizeTime);
     reSizeTime = setTimeout(() => {
       setIsLoad(!isLoad);
@@ -97,11 +96,6 @@ const Slide = ({ slideImages }) => {
     moveImage(nextIndex);
   };
 
-  window.addEventListener('load', () => {
-    const nowWidth = slideList.current?.children[0].getBoundingClientRect().width;
-    setSlideWidth(nowWidth);
-  });
-
   // transition 우선 실행 하고, nowIndex값으로 cuurentIndex state값을 바꿈
   // 0.5초 후에 이미지가 처음이나 마지막일 경우 조건에 맞게 nowIndex값을 바꾸고, transition 값을 0으로 주고, currentIndex state값을 바꿈
   // isMove state 값도 false로 바꾸어줌
@@ -118,7 +112,6 @@ const Slide = ({ slideImages }) => {
 
   // 이미지에 위치를 정하는 함수
   const slideImageReSize = () => {
-    console.log(slideWidth);
     return {
       transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
     };
@@ -131,6 +124,12 @@ const Slide = ({ slideImages }) => {
       moveImage(currentIndex + 1);
     }, 2000);
   };
+
+  // 새로고침시 정렬이 망가지지 않도록..
+  window.addEventListener('load', () => {
+    const nowWidth = slideList.current?.children[0].getBoundingClientRect().width;
+    setSlideWidth(nowWidth);
+  });
 
   return (
     <div className='slide'>
