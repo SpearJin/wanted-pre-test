@@ -23,4 +23,4 @@ https://spearjin-wnated-pre-onboarding.netlify.app
 
 ### 해결해야 할 점
 * 처음 사이트를 들어갓을때 정렬이 제대로 일어나지 않음
-
+ * load 이벤트를 이용하여 해결
