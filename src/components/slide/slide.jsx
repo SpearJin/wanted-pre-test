@@ -4,7 +4,8 @@ import './slide.css';
 
 const Slide = ({ slideImages }) => {
   const [currentIndex, setCurrentIndex] = useState(2);
-  let [slideWidth, setSlideWidth] = useState(0);
+  const [slideWidth, setSlideWidth] = useState(0);
+
   const [isMove, setIsMove] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
 
@@ -15,6 +16,9 @@ const Slide = ({ slideImages }) => {
   let touchEndX = useRef(null);
 
   let innerWidth = window.innerWidth;
+  let positionX = slideWidth * currentIndex;
+  let swiperWidth = 0;
+  let swiperX = 0;
 
   // currentIndex state가 변할때마다 실행하고, nowIndex로 현재 가운데 위치를 파악하여, brightness, display 스타일 값을 줌
   // clearInterval로 인해 callStack이 쌓이는걸 막고, 3초마다 다음 이미지로 넘어가도록 구현
@@ -52,11 +56,31 @@ const Slide = ({ slideImages }) => {
   const handlerTouchStart = (e) => {
     e.preventDefault();
     touchStartX = e.clientX;
+    document.onmousemove = drag;
+  };
+
+  const drag = (e) => {
+    swiperX = e.clientX;
+    swiperWidth = touchStartX - swiperX;
+    positionX = slideWidth * currentIndex + swiperWidth;
+    dragMovePostionX();
+  };
+
+  const dragMovePostionX = () => {
+    slideList.current.style.transform = `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${positionX}px)`;
+  };
+
+  // 이미지에 위치를 정하는 함수
+  const slideImageReSize = () => {
+    return {
+      transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${positionX}px))`,
+    };
   };
 
   // swiper 기능을 위해 마우스를 놓았을때, 마우스를 놓은 x좌료를 구함
   // touchStartX, touchEndX 값을 계산하여 조건에 맞게 nowIndex 값을 바꾸고, moveImage함수를 실행 함
   const handlerTouchEnd = (e) => {
+    document.onmousemove = null;
     touchEndX = e.clientX;
     let nextIndex;
     if (touchStartX + 100 < touchEndX) {
@@ -64,7 +88,9 @@ const Slide = ({ slideImages }) => {
     } else if (touchStartX > touchEndX + 100) {
       nextIndex = currentIndex + 1;
     } else {
-      return;
+      positionX = slideWidth * currentIndex - swiperWidth;
+      nextIndex = currentIndex;
+      dragMovePostionX();
     }
     moveImage(nextIndex);
   };
@@ -75,7 +101,8 @@ const Slide = ({ slideImages }) => {
   };
 
   // 이미지에서 선택을 안하면 다시 setInterval 실행
-  const handlerMouseOut = () => {
+  const handlerMouseOut = (e) => {
+    handlerTouchEnd(e);
     intervalTime();
   };
 
@@ -107,14 +134,7 @@ const Slide = ({ slideImages }) => {
       slideList.current.style.transition = '0s';
       setCurrentIndex(nextIndex);
       setIsMove(false);
-    }, 500);
-  };
-
-  // 이미지에 위치를 정하는 함수
-  const slideImageReSize = () => {
-    return {
-      transform: `translateX(calc(${(innerWidth - slideWidth) / 2}px - ${slideWidth * currentIndex}px))`,
-    };
+    }, 300);
   };
 
   // 인터벌이 일어나는 함수

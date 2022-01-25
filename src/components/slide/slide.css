@@ -4,6 +4,7 @@
 }
 
 .slide_list {
+  position: relative;
   display: flex;
   padding-left: 0;
 }
