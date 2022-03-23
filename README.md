@@ -7,7 +7,7 @@
 * 반응형 웹 구현
 
 ## :clipboard: 기술스택
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/styled_components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
 
 ## :paperclip: 배포 주소
 https://stupefied-varahamihira-fe2d21.netlify.app
